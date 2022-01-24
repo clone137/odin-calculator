@@ -5,33 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js" defer></script>
     <title>Calculator</title>
   </head>
   <body>
     <div class="container">
       <div class="calculator">
         <!-- calculator display -->
-        <input type="text" class="display" value="0" />
+        <input type="text" class="display" value="1234567890" />
 
         <!-- calculator buttons -->
         <div class="buttons">
-          <button class="button span3 dark-gray-button">C</button>
-          <button class="button operator-button">&divide;</button>
-          <button class="button">7</button>
-          <button class="button">8</button>
-          <button class="button">9</button>
-          <button class="button operator-button">x</button>
-          <button class="button">4</button>
-          <button class="button">5</button>
-          <button class="button">6</button>
-          <button class="button operator-button">-</button>
-          <button class="button">1</button>
-          <button class="button">2</button>
-          <button class="button">3</button>
-          <button class="button operator-button">+</button>
-          <button class="button span2">0</button>
-          <button class="button">.</button>
-          <button class="button operator-button">=</button>
+          <button class="buttonClear button span3 dark-gray-button">C</button>
+          <button class="buttonDivide button operator-button">&divide;</button>
+          <button class="numberButton button">7</button>
+          <button class="numberButton button">8</button>
+          <button class="numberButton button">9</button>
+          <button class="buttonMultiply button operator-button">x</button>
+          <button class="numberButton button">4</button>
+          <button class="numberButton button">5</button>
+          <button class="numberButton button">6</button>
+          <button class="buttonSubtract button operator-button">-</button>
+          <button class="numberButton button">1</button>
+          <button class="numberButton button">2</button>
+          <button class="numberButton button">3</button>
+          <button class="buttonAdd button operator-button">+</button>
+          <button class="numberButton button span2">0</button>
+          <button class="buttonPoint button">.</button>
+          <button class="buttonEquals button operator-button">=</button>
         </div>
       </div>
     </div>
