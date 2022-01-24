@@ -19,7 +19,10 @@ function operate(operator, number1, number2) {
 
 let display = document.querySelector('.display');
 let buttonClear = document.querySelector('.buttonClear');
-let numberButton = document.querySelectorAll('.numberButton');
+
+let numberButtons = document.querySelectorAll('.numberButton');
+let operatorButtons = document.querySelectorAll('.operatorButton');
+
 let buttonEquals = document.querySelector('.buttonEquals');
 let buttonDivide = document.querySelector('.buttonDivide');
 let buttonMultiply = document.querySelector('.buttonMultiply');
@@ -41,9 +44,32 @@ buttonClear.addEventListener('click', (e) => {
   display.value = '0';
 });
 
-numberButton.forEach((button) => {
+numberButtons.forEach((button) => {
   button.addEventListener('click', (e) => {
     addNumberToDisplay(e.target.textContent);
     console.log(e.target.textContent);
+  });
+});
+
+operatorButtons.forEach((button) => {
+  button.addEventListener('click', (e) => {
+    console.log(e.target.textContent);
+    switch (e.target.textContent) {
+      case '÷':
+        console.log(display.value, e.target.textContent);
+        break;
+      case 'x':
+        console.log(display.value, e.target.textContent);
+        break;
+      case '-':
+        console.log(display.value, e.target.textContent);
+        break;
+      case '+':
+        console.log(display.value, e.target.textContent);
+        break;
+      case '=':
+        console.log(display.value, e.target.textContent);
+        break;
+    }
   });
 });
