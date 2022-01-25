@@ -2,13 +2,11 @@
 
 function addNumberToDisplay(number) {
   const currentDisplayValue = display.value;
-  console.log(typeof currentDisplayValue);
   if (currentDisplayValue === '0') {
-    if (number === '.') {
-      display.value = currentDisplayValue + '' + number;
-    } else {
-      display.value = number;
-    }
+    display.value =
+      number === '.'
+        ? (display.value = currentDisplayValue + '' + number)
+        : (display.value = number);
   } else {
     if (number === '.') {
       if (currentDisplayValue.indexOf('.') === -1) {
@@ -49,13 +47,11 @@ buttonClear.addEventListener('click', (e) => {
 numberButtons.forEach((button) => {
   button.addEventListener('click', (e) => {
     addNumberToDisplay(e.target.textContent);
-    console.log(e.target.textContent);
   });
 });
 
 operatorButtons.forEach((button) => {
   button.addEventListener('click', (e) => {
-    console.log(e.target.textContent);
     switch (e.target.textContent) {
       case '÷':
         console.log(display.value, e.target.textContent);
