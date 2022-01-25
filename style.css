@@ -2,9 +2,6 @@
   box-sizing: border-box;
 }
 
-.container {
-}
-
 .calculator {
   max-width: 240px;
   margin: auto;
