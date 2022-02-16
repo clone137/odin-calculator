@@ -28,6 +28,23 @@ function operate(operator, firstNumber, secondNumber) {
   }
 }
 
+function dealWithOperatorButtons(newOperator) {
+  if (operator === 0) {
+    value = display.value;
+    operator = newOperator;
+    newNumber = true;
+  } else if (newOperator === '=') {
+    display.value = operate(operator, value, display.value);
+    value = display.value;
+    operator = 0;
+  } else {
+    display.value = operate(operator, value, display.value);
+    value = display.value;
+    operator = newOperator;
+    newNumber = true;
+  }
+}
+
 function addNumberToDisplay(number) {
   if (newNumber) {
     display.value = '0';
@@ -65,19 +82,70 @@ numberButtons.forEach((button) => {
 
 operatorButtons.forEach((button) => {
   button.addEventListener('click', (e) => {
-    if (operator === 0) {
-      value = display.value;
-      operator = e.target.textContent;
-      newNumber = true;
-    } else if (e.target.textContent === '=') {
-      display.value = operate(operator, value, display.value);
-      value = display.value;
-      operator = 0;
-    } else {
-      display.value = operate(operator, value, display.value);
-      value = display.value;
-      operator = e.target.textContent;
-      newNumber = true;
-    }
+    dealWithOperatorButtons(e.target.textContent);
   });
 });
+
+// add an event listener for keypresses
+document.addEventListener(
+  'keypress',
+  (event) => {
+    console.log(event.key);
+    switch (event.key) {
+      case '0':
+        addNumberToDisplay(0);
+        break;
+      case '1':
+        addNumberToDisplay(1);
+        break;
+      case '2':
+        addNumberToDisplay(2);
+        break;
+      case '3':
+        addNumberToDisplay(3);
+        break;
+      case '4':
+        addNumberToDisplay(4);
+        break;
+      case '5':
+        addNumberToDisplay(5);
+        break;
+      case '6':
+        addNumberToDisplay(6);
+        break;
+      case '7':
+        addNumberToDisplay(7);
+        break;
+      case '8':
+        addNumberToDisplay(8);
+        break;
+      case '9':
+        addNumberToDisplay(9);
+        break;
+      case '+':
+        dealWithOperatorButtons('+');
+        break;
+      case '-':
+        dealWithOperatorButtons('-');
+        break;
+      case '*':
+        dealWithOperatorButtons('x');
+        break;
+      case '/':
+        dealWithOperatorButtons('÷');
+        break;
+      case '=':
+      case 'Enter':
+        dealWithOperatorButtons('=');
+        break;
+      case 'c':
+      case 'C':
+        display.value = '0';
+        value = 0;
+        operator = 0;
+        newNumber = true;
+        break;
+    }
+  },
+  false
+);
