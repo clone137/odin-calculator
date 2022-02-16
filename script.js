@@ -1,6 +1,38 @@
 'use strict';
 
+let display = document.querySelector('.display');
+let buttonClear = document.querySelector('.buttonClear');
+let numberButtons = document.querySelectorAll('.numberButton');
+let operatorButtons = document.querySelectorAll('.operatorButton');
+
+let value = 0;
+let newNumber = false;
+let operator = 0;
+
+function operate(operator, firstNumber, secondNumber) {
+  firstNumber = Number(firstNumber);
+  secondNumber = Number(secondNumber);
+  switch (operator) {
+    case '+':
+      return firstNumber + secondNumber;
+      break;
+    case '-':
+      return firstNumber - secondNumber;
+      break;
+    case 'x':
+      return firstNumber * secondNumber;
+      break;
+    case '÷':
+      return firstNumber / secondNumber;
+      break;
+  }
+}
+
 function addNumberToDisplay(number) {
+  if (newNumber) {
+    display.value = '0';
+    newNumber = false;
+  }
   const currentDisplayValue = display.value;
   if (currentDisplayValue === '0') {
     display.value =
@@ -18,30 +50,11 @@ function addNumberToDisplay(number) {
   }
 }
 
-function operate(operator, number1, number2) {
-  switch (operator) {
-    case '+':
-      return number1 + number2;
-      break;
-    case '-':
-      return number1 - number2;
-      break;
-    case '*':
-      return number1 * number2;
-      break;
-    case '/':
-      return number1 / number2;
-      break;
-  }
-}
-
-let display = document.querySelector('.display');
-let buttonClear = document.querySelector('.buttonClear');
-let numberButtons = document.querySelectorAll('.numberButton');
-let operatorButtons = document.querySelectorAll('.operatorButton');
-
 buttonClear.addEventListener('click', (e) => {
   display.value = '0';
+  value = 0;
+  operator = 0;
+  newNumber = true;
 });
 
 numberButtons.forEach((button) => {
@@ -52,22 +65,19 @@ numberButtons.forEach((button) => {
 
 operatorButtons.forEach((button) => {
   button.addEventListener('click', (e) => {
-    switch (e.target.textContent) {
-      case '÷':
-        console.log(display.value, e.target.textContent);
-        break;
-      case 'x':
-        console.log(display.value, e.target.textContent);
-        break;
-      case '-':
-        console.log(display.value, e.target.textContent);
-        break;
-      case '+':
-        console.log(display.value, e.target.textContent);
-        break;
-      case '=':
-        console.log(display.value, e.target.textContent);
-        break;
+    if (operator === 0) {
+      value = display.value;
+      operator = e.target.textContent;
+      newNumber = true;
+    } else if (e.target.textContent === '=') {
+      display.value = operate(operator, value, display.value);
+      value = display.value;
+      operator = 0;
+    } else {
+      display.value = operate(operator, value, display.value);
+      value = display.value;
+      operator = e.target.textContent;
+      newNumber = true;
     }
   });
 });
