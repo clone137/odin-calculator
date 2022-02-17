@@ -37,16 +37,17 @@ function dealWithOperatorButtons(newOperator) {
     operator = newOperator;
     newNumber = true;
   } else if (newOperator === '=') {
-    display.value = parseFloat(operate(operator, value, display.value)).toFixed(
-      2
-    );
-    value = display.value;
+    value = operate(operator, value, display.value);
+    value = display.value = Number.isInteger(value)
+      ? value
+      : parseFloat(value).toFixed(2);
     operator = 0;
+    newNumber = true;
   } else {
-    display.value = parseFloat(operate(operator, value, display.value)).toFixed(
-      2
-    );
-    value = display.value;
+    value = operate(operator, value, display.value);
+    value = display.value = Number.isInteger(value)
+      ? value
+      : parseFloat(value).toFixed(2);
     operator = newOperator;
     newNumber = true;
   }
