@@ -2,6 +2,7 @@
 
 let display = document.querySelector('.display');
 let buttonClear = document.querySelector('.buttonClear');
+let buttonBackspace = document.querySelector('.buttonBackspace');
 let numberButtons = document.querySelectorAll('.numberButton');
 let operatorButtons = document.querySelectorAll('.operatorButton');
 
@@ -36,14 +37,34 @@ function dealWithOperatorButtons(newOperator) {
     operator = newOperator;
     newNumber = true;
   } else if (newOperator === '=') {
-    display.value = operate(operator, value, display.value);
+    display.value = parseFloat(operate(operator, value, display.value)).toFixed(
+      2
+    );
     value = display.value;
     operator = 0;
   } else {
-    display.value = operate(operator, value, display.value);
+    display.value = parseFloat(operate(operator, value, display.value)).toFixed(
+      2
+    );
     value = display.value;
     operator = newOperator;
     newNumber = true;
+  }
+}
+
+function doClear() {
+  display.value = '0';
+  value = 0;
+  operator = 0;
+  newNumber = true;
+}
+
+function doBackspace() {
+  if (display.value.length > 1) {
+    value = display.value.slice(0, -1);
+    display.value = value;
+  } else if (display.value.length === 1) {
+    value = display.value = 0;
   }
 }
 
@@ -69,12 +90,8 @@ function addNumberToDisplay(number) {
   }
 }
 
-buttonClear.addEventListener('click', (e) => {
-  display.value = '0';
-  value = 0;
-  operator = 0;
-  newNumber = true;
-});
+buttonClear.addEventListener('click', doClear);
+buttonBackspace.addEventListener('click', doBackspace);
 
 numberButtons.forEach((button) => {
   button.addEventListener('click', (e) => {
@@ -90,39 +107,26 @@ operatorButtons.forEach((button) => {
 
 // add an event listener for keypresses
 document.addEventListener(
-  'keypress',
+  'keydown',
   (event) => {
-    console.log(event.key);
+    console.log(event);
     switch (event.key) {
       case '0':
-        addNumberToDisplay(0);
-        break;
       case '1':
-        addNumberToDisplay(1);
-        break;
       case '2':
-        addNumberToDisplay(2);
-        break;
       case '3':
-        addNumberToDisplay(3);
-        break;
       case '4':
-        addNumberToDisplay(4);
-        break;
       case '5':
-        addNumberToDisplay(5);
-        break;
       case '6':
-        addNumberToDisplay(6);
-        break;
       case '7':
-        addNumberToDisplay(7);
-        break;
       case '8':
-        addNumberToDisplay(8);
-        break;
       case '9':
-        addNumberToDisplay(9);
+      case '.':
+        addNumberToDisplay(event.key);
+        break;
+      case '=':
+      case 'Enter':
+        dealWithOperatorButtons('=');
         break;
       case '+':
         dealWithOperatorButtons('+');
@@ -136,16 +140,12 @@ document.addEventListener(
       case '/':
         dealWithOperatorButtons('÷');
         break;
-      case '=':
-      case 'Enter':
-        dealWithOperatorButtons('=');
-        break;
       case 'c':
       case 'C':
-        display.value = '0';
-        value = 0;
-        operator = 0;
-        newNumber = true;
+        doClear();
+        break;
+      case 'Backspace':
+        doBackspace();
         break;
     }
   },
