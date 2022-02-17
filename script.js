@@ -109,7 +109,6 @@ operatorButtons.forEach((button) => {
 document.addEventListener(
   'keydown',
   (event) => {
-    console.log(event);
     switch (event.key) {
       case '0':
       case '1':
