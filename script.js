@@ -29,7 +29,9 @@ function operate(operator, firstNumber, secondNumber) {
 }
 
 function dealWithOperatorButtons(newOperator) {
-  if (operator === 0) {
+  if (operator === 0 && newOperator === '=') {
+    return;
+  } else if (operator === 0 && newOperator !== '=') {
     value = display.value;
     operator = newOperator;
     newNumber = true;
